@@ -75,6 +75,6 @@ ifeq ($(OS),Linux)
 endif
 
 testinstall:
-	g++ -std=c++17 test/testc_installed.cc -o testinstall -ldatetime
+	g++ -std=c++17 test/testcc.cc -o testinstall -ldatetime
 	./testinstall
 	rm -v testinstall
