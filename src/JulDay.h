@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include "DateSplit.h"
-#endif
-using namespace std;
 
 
 
@@ -26,3 +24,5 @@ using namespace std;
 extern "C" {
 	void JulDay(int n, int *Date, float *ut, double *JD);
 }
+
+#endif

@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#endif
-using namespace std;
 
 /***********************************************************************
  * NAME : 			void SplitDate(Date,year,month,day)
@@ -42,3 +40,4 @@ void SplitDate(int Date, int *year, int *month, int *day);
 extern "C" {
 	void DateSplit(int n, int *Date, int *year, int *month, int *day);
 }
+#endif

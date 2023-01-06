@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include "DateJoin.h"
-#endif
-using namespace std;
 
 /***********************************************************************
  * NAME : 		void JulDaytoDate(n,JD,Date,ut)
@@ -24,3 +22,5 @@ using namespace std;
 extern "C" {
 	void JulDaytoDate(int n, double *JD, int *Date, float *ut);
 }
+
+#endif

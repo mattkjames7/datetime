@@ -6,8 +6,6 @@
 #include "DateDifference.h"
 #include "PlusDay.h"
 
-#endif
-using namespace std;
 
 
 /***********************************************************************
@@ -30,3 +28,5 @@ extern "C" {
 	void MidTime(int Date0, float ut0, int Date1, float ut1,
 				int *Datem, float *utm);
 }	
+
+#endif

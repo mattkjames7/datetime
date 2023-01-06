@@ -3,8 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#endif
-using namespace std;
+
 
 /***********************************************************************
  * NAME : 			void LeapYear(n,year,ly)
@@ -22,3 +21,5 @@ using namespace std;
 extern "C" {
 	void LeapYear(int n, int *year, bool *ly);
 }
+
+#endif

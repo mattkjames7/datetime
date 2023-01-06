@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-using namespace std;
 
 /***********************************************************************
  * NAME : 		void BubbleSort(n,x,y)

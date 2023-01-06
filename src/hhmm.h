@@ -3,11 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-using namespace std;
+
 const double mn2hr = 1.0/60.0;
 const double sc2hr = 1.0/3600.0;
 const double ms2hr = 1.0/3600000.0;
-#endif
 
 extern "C" {
 /***********************************************************************
@@ -46,3 +45,4 @@ extern "C" {
  * ********************************************************************/
 	void HHMMtoDec(int n, double *hh, double *mm, double *ss, double *ms, double *ut);
 }
+#endif

@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include "PlusDay.h"
 
-#endif
 
 /***********************************************************************
  * NAME : 			int DateDifference(Date0,Date1)
@@ -25,3 +24,4 @@
 extern "C" {
 	int DateDifference(int Date0, int Date1);
 }
+#endif

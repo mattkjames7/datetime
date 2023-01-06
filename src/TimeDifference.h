@@ -4,9 +4,7 @@
 #include <stdlib.h>
 #include "DateDifference.h"
 
-#endif
 
-using namespace std;
 
 /***********************************************************************
  * NAME : 			float TimeDifference(Date0,ut0,Date1,ut1)
@@ -27,3 +25,5 @@ using namespace std;
 extern "C" {
 	float TimeDifference(int Date0, float ut0, int Date1, float ut1);
 }
+
+#endif

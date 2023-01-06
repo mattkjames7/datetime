@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include "LeapYear.h"
 #include "DateSplit.h"
-#endif
-using namespace std;
+
 
 
 /***********************************************************************
@@ -43,3 +42,4 @@ extern "C" {
 extern "C" {
 	void DayNotoDate(int n, int *Year, int *Doy, int *Date);
 }
+#endif

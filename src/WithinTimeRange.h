@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ContUT.h"
-#endif
-using namespace std;
 
 
 /***********************************************************************
@@ -34,3 +32,5 @@ extern "C" {
 						int Date1, float ut1,
 						int *ni, int *ind);
 }
+
+#endif

@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#endif
-using namespace std;
 
 
 /***********************************************************************
@@ -43,3 +41,4 @@ int JoinDate(int year, int month, int day);
 extern "C" {
 	void DateJoin(int n, int *year, int *month, int *day, int *Date);
 }
+#endif

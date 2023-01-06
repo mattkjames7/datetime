@@ -4,11 +4,9 @@
 #include <stdlib.h>
 #include "DayNo.h"
 #include "LeapYear.h"
-#endif
-using namespace std;
 
 /***********************************************************************
- * NAME : 			void MinusDay(Date)
+ * NAME : 			int MinusDay(Date)
  * 
  * DESCRIPTION : 	Given a date in the format yyyymmdd, subtract a 
  * 					single day.
@@ -23,3 +21,5 @@ using namespace std;
 extern "C" {
 	int MinusDay(int Date);
 }
+
+#endif

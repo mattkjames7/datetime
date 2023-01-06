@@ -56,7 +56,6 @@ clean:
 
 install:
 	cp -v include/datetime.h $(PREFIX)/include
-	cp -v include/datetimec.h $(PREFIX)/include
 
 	cp -v lib/$(LIBFILE) $(PREFIX)/lib
 	chmod 0775 $(PREFIX)/lib/$(LIBFILE)
@@ -67,7 +66,6 @@ endif
 
 uninstall:
 	rm -v $(PREFIX)/include/datetime.h
-	rm -v $(PREFIX)/include/datetimec.h
 	rm -v $(PREFIX)/lib/$(LIBFILE)
 ifeq ($(OS),Linux)
 	ldconfig

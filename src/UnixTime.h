@@ -9,8 +9,7 @@
 #include "WhereEq.h"
 #include "BubbleSort.h"
 
-#endif
-using namespace std;
+
 
 
 /***********************************************************************
@@ -75,3 +74,5 @@ extern "C" {
 extern "C" {
 	void UnixTimetoDate(int n, double *unixt, int *Date, float *ut);
 }
+
+#endif

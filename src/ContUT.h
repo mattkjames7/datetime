@@ -8,8 +8,6 @@
 #include "Unique.h"
 #include <math.h>
 
-#endif
-using namespace std;
 
 
 
@@ -79,3 +77,5 @@ double GetYearUTC(int Year);
  * 
  * ********************************************************************/
 void PopulateYearUTC();
+
+#endif

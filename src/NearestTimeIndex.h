@@ -4,8 +4,7 @@
 #include <stdlib.h>
 #include "ContUT.h"
 #include <math.h>
-#endif
-using namespace std;
+
 
 /***********************************************************************
  * NAME : 		int NearestTimeIndex(n,Date,ut,TestDate,Testut)
@@ -29,3 +28,5 @@ extern "C" {
 	int NearestTimeIndex(int n, int *Date, float *ut,
 						int TestDate, float Testut);
 }
+
+#endif

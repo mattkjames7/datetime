@@ -5,12 +5,9 @@
 #include "DayNo.h"
 #include "LeapYear.h"
 
-#endif
-using namespace std;
-
 
 /***********************************************************************
- * NAME : 			void PlusDay(Date)
+ * NAME : 			int PlusDay(Date)
  * 
  * DESCRIPTION : 	Given a date in the format yyyymmdd, add a 
  * 					single day.
@@ -25,3 +22,6 @@ using namespace std;
 extern "C" {
 	int PlusDay(int Date);
 }
+
+
+#endif
