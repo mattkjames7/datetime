@@ -26,7 +26,7 @@ all: obj lib
 obj: $(OBJ)
 
 lib: 
-	$(CC) -shared -o libdatetime.so $(BUILDDIR)/*.o $(LDFLAGS)
+	$(CC) -shared -o ../lib/libdatetime.so $(BUILDDIR)/*.o $(LDFLAGS)
 
 clean:
 	rm -v *.o *.so
