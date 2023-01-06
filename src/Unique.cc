@@ -18,9 +18,9 @@
 template <typename T>
 void Unique(int n, T *x, int *nu, T *ux) {
 	
-	int i, p, pVal;
+	int i, p;
 	p = 0;
-	pVal = 0;
+	T pVal = 0;
 	
 	/* sort the dates first */
 	T *sx = new T[n];

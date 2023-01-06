@@ -36,6 +36,7 @@ obj:
 	cd src; make obj
 
 lib:
+	$(MD) lib
 	cd src; make lib
 
 winobj:
@@ -43,6 +44,7 @@ winobj:
 	cd src; make winobj
 
 winlib: 
+	$(MD) lib
 	cd src; make winlib
 
 
@@ -53,6 +55,7 @@ clean:
 	-rm -v build/*.o
 	-rmdir -v build
 	-rm -v testinstall
+	cd test; make clean
 
 install:
 	cp -v include/datetime.h $(PREFIX)/include

@@ -389,7 +389,41 @@ void WithinTimeRange(int n, int *Date, float *ut,
  * ********************************************************************/
 /* create a template for a data type so that we can accept any data type */
 template <typename T>
-void BubbleSort(int n, T *x, T *y);
+void BubbleSort(int n, T *x, T *y) {
+	
+	bool swapped = true;
+	int i, p;
+	T tmp;
+	
+	/* copy each element of x into y */
+	for (i=0;i<n;i++) {
+		y[i] = x[i];
+	}	
+	
+	/* Check that we have enough elements for there not to be a 
+	 * segmentation fault */
+	if (n < 2) {
+		return;
+	}
+	
+	/* start sorting by swapping elements */
+	p = n;
+	while (swapped) {
+		swapped = false;
+		for (i=1;i<p;i++) {
+			if (y[i-1] > y[i]) {
+				/* swap */
+				tmp = y[i];
+				y[i] = y[i-1];
+				y[i-1] = tmp;
+				swapped = true;
+
+			}
+		}
+		p--;
+	}
+}
+
 
 /***********************************************************************
  * NAME : 			double GetYearUTC(Year)
@@ -462,7 +496,34 @@ void SplitDate(int Date, int *year, int *month, int *day);
  * 			T		*ux		Array of unique values from x
  * 
  * ********************************************************************/
-void Unique(int n, T *x, int *nu, T *ux);
+template <typename T>
+void Unique(int n, T *x, int *nu, T *ux) {
+	
+	int i, p;
+	p = 0;
+	T pVal = 0;
+	
+	/* sort the dates first */
+	T *sx = new T[n];
+	BubbleSort(n,x,sx);
+	
+	/* loop through sorted dates, adding a new one to the unique array
+	 * when a differnet on is found */
+	for (i=0;i<n;i++) {
+		if ((sx[i] != pVal) || (i == 0)) {
+			ux[p] = sx[i];
+			pVal = sx[i];
+			p++;
+		}
+	}
+	nu[0] = p;
+	
+	/* delete the sorted array */
+	delete[] sx;	
+		
+	
+}
+
 
 
 /***********************************************************************
@@ -506,7 +567,21 @@ double GetYearUnixT(int Year);
  * 
  * ********************************************************************/
 /* create a template for a data type so that we can accept any data type */
-void WhereEq(int n, T *x, T y, int *ni, int *ind);
+template <typename T>
+void WhereEq(int n, T *x, T y, int *ni, int *ind) {
+	
+	int i,p;
+	p = 0;
+	for (i=0;i<n;i++) {
+		if (y == x[i]) {
+			ind[p] = i;
+			p++;
+		}
+	}
+	ni[0] = p;
+}
+	
+
 
 #endif
 

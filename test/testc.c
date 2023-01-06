@@ -1,8 +1,8 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <datetime.h>
 
 
-int testsort();
 int testcontut();
 int testdatediff();
 int testdatejoin();
@@ -16,19 +16,16 @@ int testminusday();
 int testtimeindex();
 int testplusday();
 int testtimediff();
-int testunique();
 int testunixtime();
-int testwhereeq();
 int testwithin();
 
 int main() {
 
-	printf("Executing C++ Tests\n");
+	printf("Executing C Tests\n");
 
 	int errs = 0;
 
 
-	errs += testsort();
 	errs += testcontut();
 	errs += testdatediff();
 	errs += testdatejoin();
@@ -42,9 +39,7 @@ int main() {
 	errs += testtimeindex();
 	errs += testplusday();
 	errs += testtimediff();
-	errs += testunique();
 	errs += testunixtime();
-	errs += testwhereeq();
 	errs += testwithin();
 
 	if (errs == 0) {
@@ -164,36 +159,6 @@ int testtimediff() {
 	return out;	
 }
 
-int testunique() {
-	printf("Testing unique...         ");
-	int out = 0;
-
-	float x[] = {1.0,2.0,2.3,4.2,4.2,6.3,6.3};
-	float u[] = {1.0,2.0,2.3,4.2,6.3};
-	int nu, i;
-	float ux[7];
-
-	Unique(7,x,&nu,ux);
-
-	if (nu != 5) {
-		out = 1;
-	} else {
-		for (i=0;i<5;i++) {
-			if (ux[i] != u[i]) {
-				out = 1;
-				//break;
-			}
-		}
-	}
-
-	if (out == 0) {
-		printf("pass\n");
-	} else {
-		printf("fail\n");
-	}
-	return out;	
-}
-
 int testunixtime() {
 	printf("Testing Unix time...      ");
 	int out = 0;
@@ -223,36 +188,6 @@ int testunixtime() {
 	return out;	
 }
 
-int testwhereeq() {
-	printf("Testing where equal...    ");
-	int out = 0;
-
-	double x[] = {1.0,4.0,2.0,4.0,1.0,2.0,2.0};
-	int ni, i;
-	int ind[7];
-	int test[] = {2,5,6};
-
-	WhereEq(7,x,2.0,&ni,ind);
-	if (ni != 3) {
-		out = 1;
-	} else {
-		for (i=0;i<3;i++) {
-			if (ind[i] != test[i]) {
-				out = 1;
-				break;
-			}
-		}
-	}
-
-
-
-	if (out == 0) {
-		printf("pass\n");
-	} else {
-		printf("fail\n");
-	}
-	return out;	
-}
 
 int testwithin() {
 	printf("Testing within range...   ");
@@ -446,31 +381,6 @@ int testdatejoin() {
 	return out;
 }
 
-
-int testsort() {
-	printf("Testing bubble sort...    ");
-	int out = 0;
-	int i;
-	float arr0[] = {6.0,2.3,1.2,4.5,9.9};
-	float arr1[5];
-	float test[] = {1.2,2.3,4.5,6.0,9.9};
-
-	BubbleSort(5,arr0,arr1);
-
-	for (i=0;i<5;i++){
-		if(arr1[i] != test[i]){
-			out = 1;
-			break;
-		}
-	}
-
-	if (out == 0) {
-		printf("pass\n");
-	} else {
-		printf("fail\n");
-	}
-	return out;
-}
 
 int testcontut() {
 	printf("Testing Cont UT...        ");

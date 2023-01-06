@@ -1,6 +1,5 @@
 //#include "BubbleSort.h"
 
-
 /***********************************************************************
  * NAME : 		void BubbleSort(n,x,y)
  * 
@@ -37,7 +36,8 @@ void BubbleSort(int n, T *x, T *y) {
 	
 	/* start sorting by swapping elements */
 	p = n;
-	while (!swapped) {
+
+	while (swapped) {
 		swapped = false;
 		for (i=1;i<p;i++) {
 			if (y[i-1] > y[i]) {
