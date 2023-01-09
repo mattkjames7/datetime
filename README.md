@@ -62,24 +62,24 @@ make testinstall
 
 | Name | Description |
 |:-----|:------------|
-| [`ContUT()`](include/datetime.h#L29) | Converts Date and UT to a continuous value of hours since 19500101 00:00/ |
-| [`ContUTtoDate()`](include/datetime.h#L46) | Converts output of `ContUT()` back to date and time. |
-| [`DateDifference()`](include/datetime.h#L64) | Find the number of days between two dates. |
-| [`DateJoin()`](include/datetime.h#L82) | Join the individual elements of a date (year, month and day) to a single integer with the format _yyyymmdd_. |
-| [`DateSplit()`](include/datetime.h#L100) | Split the date integer into year, month and day. |
-| [`DayNo()`](include/datetime.h#L118) | Converts a date of the format _yyyymmdd_ to year and day number. |
-| [`DayNotoDate()`](include/datetime.h#L135) | Converts year and day number to a date with the format _yyyymmdd_. |
-| [`DectoHHMM()`](include/datetime.h#L154) | Converts the time in decimal hours to hours, minutes, seconds and milliseconds. |
-| [`HHMMtoDec()`](include/datetime.h#L172) | Converts hours, minutes, seconds and milliseconds to decimal hours. |
-| [`JulDay()`](include/datetime.h#L188) | Converts a date and time to Julian day. |
-| [`JulDaytoDate()`](include/datetime.h#L204) | Converts Julian day to date and time. |
-| [`LeapYear()`](include/datetime.h#L219) | Determines whether a year is a leap year or not. |
-| [`MidTime()`](include/datetime.h#L237) | Works out the time and date exactly in the middle of two dates/times. |
-| [`MinusDay()`](include/datetime.h#L252) | Subtracts one day off a date. |
-| [`NearestTimeIndex()`](include/datetime.h#L272) | Finds the index of a time array closest to a given date/time. |
-| [`PlusDay()`](include/datetime.h#L287) | Adds a day onto a date. |
-| [`TimeDifference()`](include/datetime.h#L305) | Calculates the time difference(in days) between two dates/times. |
-| [`UnixTime()`](include/datetime.h#L324) | Calculate the Unix time given a date and time. |
-| [`UnixTimetoDate()`](include/datetime.h#L341) | Convert Unix time back to date and UT. |
-| [`WithinTimeRange()`](include/datetime.h#L364) | Find the indices of a time array which lie within two dates/times. |
+| [`ContUT()`](include/datetime.h#L34) | Converts Date and UT to a continuous value of hours since 19500101 00:00/ |
+| [`ContUTtoDate()`](include/datetime.h#L51) | Converts output of `ContUT()` back to date and time. |
+| [`DateDifference()`](include/datetime.h#L69) | Find the number of days between two dates. |
+| [`DateJoin()`](include/datetime.h#L87) | Join the individual elements of a date (year, month and day) to a single integer with the format _yyyymmdd_. |
+| [`DateSplit()`](include/datetime.h#L105) | Split the date integer into year, month and day. |
+| [`DayNo()`](include/datetime.h#L123) | Converts a date of the format _yyyymmdd_ to year and day number. |
+| [`DayNotoDate()`](include/datetime.h#L140) | Converts year and day number to a date with the format _yyyymmdd_. |
+| [`DectoHHMM()`](include/datetime.h#L159) | Converts the time in decimal hours to hours, minutes, seconds and milliseconds. |
+| [`HHMMtoDec()`](include/datetime.h#L177) | Converts hours, minutes, seconds and milliseconds to decimal hours. |
+| [`JulDay()`](include/datetime.h#L193) | Converts a date and time to Julian day. |
+| [`JulDaytoDate()`](include/datetime.h#L209) | Converts Julian day to date and time. |
+| [`LeapYear()`](include/datetime.h#L224) | Determines whether a year is a leap year or not. |
+| [`MidTime()`](include/datetime.h#L242) | Works out the time and date exactly in the middle of two dates/times. |
+| [`MinusDay()`](include/datetime.h#L257) | Subtracts one day off a date. |
+| [`NearestTimeIndex()`](include/datetime.h#L277) | Finds the index of a time array closest to a given date/time. |
+| [`PlusDay()`](include/datetime.h#L292) | Adds a day onto a date. |
+| [`TimeDifference()`](include/datetime.h#L310) | Calculates the time difference(in days) between two dates/times. |
+| [`UnixTime()`](include/datetime.h#L329) | Calculate the Unix time given a date and time. |
+| [`UnixTimetoDate()`](include/datetime.h#L346) | Convert Unix time back to date and UT. |
+| [`WithinTimeRange()`](include/datetime.h#L369) | Find the indices of a time array which lie within two dates/times. |
 
