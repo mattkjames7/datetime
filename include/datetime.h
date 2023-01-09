@@ -3,6 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define LIBDATETIME_VERSION_MAJOR 1
+#define LIBDATETIME_VERSION_MINOR 0
+#define LIBDATETIME_VERSION_PATCH 0
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
