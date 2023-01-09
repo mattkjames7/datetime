@@ -18,6 +18,23 @@ ifndef BUILDDIR
 	BUILDDIR=.
 endif
 
+
+
+ifeq ($(OS),Windows_NT)
+#windows stuff here
+	MD=mkdir
+	LIBFILE=libdatetime.dll
+else
+#linux and mac here
+	OS=$(shell uname -s)
+	MD=mkdir -p
+	ifeq ($(OS),Linux)
+		LIBFILE=libdatetime.so
+	else
+		LIBFILE=libdatetime.dylib
+	endif
+endif
+
 all: obj lib
 
 %.o : %.cc
@@ -26,7 +43,7 @@ all: obj lib
 obj: $(OBJ)
 
 lib: 
-	$(CC) -shared -o ../lib/libdatetime.so $(BUILDDIR)/*.o $(LDFLAGS)
+	$(CC) -shared -o ../lib/$(LIBFILE) $(BUILDDIR)/*.o $(LDFLAGS)
 
 clean:
 	rm -v *.o *.so

@@ -1,7 +1,13 @@
 # CFLAGS for CC
 CFLAGS=-g -O3 -Wextra -fPIC -I../include
 CXXFLAGS=-g -O3 -std=c++17 -Wextra -fPIC -I../include
-LDFLAGS=-lm -Wl,-rpath='$$ORIGIN/../lib' -L ../lib -ldatetime
+
+OS=$(shell name -s)
+ifeq ($(OS),Linux)
+	LDFLAGS=-lm -Wl,-rpath='$$ORIGIN/../lib' -L ../lib -ldatetime
+else
+	LDFLAGS=-lm -L../lib -ldatetime
+endif
 
 
 # Compiler
