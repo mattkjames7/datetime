@@ -2,13 +2,12 @@
 CFLAGS=-g -O3 -Wextra -fPIC -I../include
 CXXFLAGS=-g -O3 -std=c++17 -Wextra -fPIC -I../include
 
-OS=$(shell name -s)
+OS=$(shell uname -s)
 ifeq ($(OS),Linux)
 	LDFLAGS=-lm -Wl,-rpath='$$ORIGIN/../lib' -L ../lib -ldatetime
 else
 	LDFLAGS=-lm -L../lib -ldatetime
 endif
-
 
 # Compiler
 CC=gcc $(CFLAGS)
