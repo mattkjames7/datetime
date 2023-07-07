@@ -55,6 +55,7 @@ clean:
 	-rm -v build/*.o
 	-rmdir -v build
 	-rm -v testinstall
+	-rm -v lib/$(LIBFILE)
 	cd test; make clean
 
 install:
