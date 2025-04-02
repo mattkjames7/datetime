@@ -86,7 +86,66 @@ START_TEST(test_within)
 }
 END_TEST
 
-// ... You can continue converting the rest in the same style ...
+START_TEST(test_leap_year) 
+{
+    int year;
+    bool ly;
+
+    year = 2001;
+    LeapYear(1,&year,&ly);
+    ck_assert(!ly);
+
+    year = 2004;
+    LeapYear(1,&year,&ly);
+    ck_assert(ly);
+}
+END_TEST
+
+START_TEST(test_jul_day)
+{
+	double jd;
+	int Date;
+	float ut;
+
+	Date = 20041230;
+	ut = 12.0;
+	JulDay(1,&Date,&ut,&jd);
+    ck_assert_double_eq(jd,2453370.0);
+
+	jd = 2413370.0;
+	JulDaytoDate(1,&jd,&Date,&ut);
+    ck_assert_int_eq(Date, 18950625);
+    ck_assert_float_eq(ut, 12.0);
+}
+END_TEST
+
+START_TEST(test_hours_to_hhmm) 
+{
+	double ut, ms;
+	int hh, mm, ss;
+
+	ut = 22.25;
+	DectoHHMM(1,&ut,&hh,&mm,&ss,&ms);
+    ck_assert_int_eq(hh, 22);
+    ck_assert_int_eq(mm, 15);
+    ck_assert_int_eq(ss, 22);
+    ck_assert_int_eq(ms, 22);
+}
+END_TEST
+
+START_TEST(test_hhmm_to_hours) 
+{
+	double ut;
+    double hh, mm, ss, ms;
+    hh = 22;
+    mm = 15;
+    ss = 0;
+    ms = 0;
+
+	HHMMtoDec(1,&hh,&mm,&ss,&ms,&ut);
+    ck_assert_double_eq(ut, 22.25);
+}
+END_TEST
 
 Suite *datetime_suite(void)
 {
