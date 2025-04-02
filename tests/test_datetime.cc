@@ -174,20 +174,13 @@ TEST(DateTimeTests, HoursToHHMM) {
 
 TEST(DateTimeTests, HHMMToHours) {
     double ut;
-    int hh, mm, ss, ms;
+    double hh, mm, ss, ms;
     hh = 22;
     mm = 15;
     ss = 0;
     ms = 0;
 
-    HHMMtoDec(
-        1,
-        &((double) hh),
-        &((double) mm),
-        &((double) ss),
-        &((double) ms),
-        &ut
-    );
+    HHMMtoDec(1,&hh,&mm,&ss,&ms,&ut);
 
     ASSERT_FLOAT_EQ(ut, 22.25);
 }
@@ -234,7 +227,7 @@ TEST(DateTimeTests, TestBubbleSort) {
 	BubbleSort(5,arr0,arr1);
     
     for (int i=0;i<5;i++) {
-        EXPECT_EQ(arr[i],test[i]);
+        EXPECT_EQ(arr1[i],test[i]);
     }
 }
 
