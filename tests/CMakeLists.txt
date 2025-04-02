@@ -1,3 +1,6 @@
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(CHECK REQUIRED check)
+
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -27,3 +30,22 @@ set_target_properties(test_datetime PROPERTIES
 
 include(GoogleTest)
 gtest_discover_tests(test_datetime)
+
+add_executable(test_c test_c.c)
+
+# Add include paths and link libraries using pkg-config
+target_include_directories(test_c PRIVATE
+    ${CHECK_INCLUDE_DIRS}
+    ${CMAKE_SOURCE_DIR}/include
+)
+
+target_link_libraries(test_c
+    ${CHECK_LIBRARIES}
+    datetime
+    m
+)
+
+set_target_properties(test_c PROPERTIES
+    BUILD_RPATH ${CMAKE_SOURCE_DIR}/lib
+    INSTALL_RPATH ${CMAKE_SOURCE_DIR}/lib
+)
