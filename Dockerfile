@@ -4,7 +4,7 @@ FROM ubuntu:24.04
 RUN apt-get update && apt-get install -y \
     cmake \
     g++ \
-    libcheck-dev \
+    check \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user 'ubuntu'
