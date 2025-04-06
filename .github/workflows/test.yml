@@ -22,9 +22,7 @@ jobs:
             
       - name: Build Docker Image
         run: |
-          pyver="${{ inputs.python_version }}"
-          pyref="py${pyver//./}"
-          docker_image="datetime:${pyref}"
+          docker_image="datetime"
           echo "Docker image: ${docker_image}"
           echo "docker_image=${docker_image}" >> $GITHUB_ENV
           docker build --target $pyref -t $docker_image .
