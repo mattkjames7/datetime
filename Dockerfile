@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     cmake \
     g++ \
     check \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
