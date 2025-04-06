@@ -7,9 +7,6 @@ RUN apt-get update && apt-get install -y \
     check \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user 'ubuntu'
-RUN useradd -ms /bin/bash ubuntu
-
 # Set the working directory
 WORKDIR /datetime
 
