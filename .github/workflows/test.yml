@@ -25,7 +25,7 @@ jobs:
           docker_image="datetime"
           echo "Docker image: ${docker_image}"
           echo "docker_image=${docker_image}" >> $GITHUB_ENV
-          docker build --target $pyref -t $docker_image .
+          docker build -t $docker_image .
 
       - name: Run Docker Image
         run: |
