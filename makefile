@@ -49,14 +49,14 @@ winlib:
 
 
 test:
-	cd test; make all
+	cd build; cmake .. && make
+	build/tests/test_datetime
+	build/tests/test_c
 
 clean:
-	-rm -v build/*.o
-	-rmdir -v build
+	-rm -vfr build
 	-rm -v testinstall
 	-rm -v lib/$(LIBFILE)
-	cd test; make clean
 
 install:
 	cp -v include/datetime.h $(PREFIX)/include
@@ -75,7 +75,3 @@ ifeq ($(OS),Linux)
 	ldconfig
 endif
 
-testinstall:
-	g++ -std=c++17 test/testcc.cc -o testinstall -ldatetime
-	./testinstall
-	rm -v testinstall
