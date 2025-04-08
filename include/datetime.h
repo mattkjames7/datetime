@@ -1,3 +1,13 @@
+#ifdef _WIN32
+  #ifdef BUILDING_DATETIME
+    #define DATETIME_API __declspec(dllexport)
+  #else
+    #define DATETIME_API __declspec(dllimport)
+  #endif
+#else
+  #define DATETIME_API
+#endif
+
 #ifndef __DATETIME_H__
 #define __DATETIME_H__
 #include <stdio.h>
