@@ -14,6 +14,59 @@ cd datetime
 
 For Linux or Mac:
 ```bash
+# configure the build (default)
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build
+
+# or with tests
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true
+
+# build the library
+cmake --build build
+
+# run tests (if built)
+./build/tests/test_datetime
+./build/tests/test_c
+
+# install globally
+sudo cmake --install build
+
+# uninstall
+cmake --build build --target uninstall
+```
+
+And for Windows (Visual Studio):
+```powershell
+# Configure the build (default)
+cmake -DCMAKE_INSTALL_PREFIX="C:/install/dir" -B build -G "Visual Studio 17 2022"
+
+# or with tests
+cmake -DCMAKE_INSTALL_PREFIX="C:/install/dir" -DBUILD_TESTING=ON -B build -G "Visual Studio 17 2022"
+
+# Build the library 
+cmake --build build
+
+# Run tests (if built)
+.\build\tests\Release\test_datetime.exe
+.\build\tests\Release\test_c.exe
+
+# Install globally (run in elevated shell)
+cmake --install build
+
+# Uninstall
+cmake --build build --target uninstall
+```
+or (MinGW):
+```powerhsell
+cmake -DCMAKE_INSTALL_PREFIX="C:/install/dir" -G "MinGW Makefiles" -B build
+cmake --build build
+cmake --install build
+```
+
+<details>
+<summary> Old Build Instructions </summary>
+
+For Linux or Mac:
+```bash
 #build the library
 make
 
@@ -25,6 +78,7 @@ For Windows:
 ```cmd
 > compile.bat
 ```
+</details>
 
 ## Linking
  
