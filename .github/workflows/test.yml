@@ -41,7 +41,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && ./build/tests/test_datetime && ./build/test/test_c"
+          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && ./build/tests/test_datetime && ./build/tests/test_c"
 
       - name: Clean Up
         if: always()
