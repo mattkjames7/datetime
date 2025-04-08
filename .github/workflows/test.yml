@@ -36,11 +36,12 @@ jobs:
 
       - name: Build Library
         run: |
-          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && make"
+          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true"
+          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && cmake --build build"
 
       - name: Run Tests
         run: |
-          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && make test"
+          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && ./build/tests/test_datetime && ./build/test/test_c"
 
       - name: Clean Up
         if: always()
