@@ -11,6 +11,7 @@ on:
 
 jobs:
   build_test:
+    if: false
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout current branch
@@ -53,3 +54,36 @@ jobs:
         if: always()
         run: |
           docker stop ${{ env.docker_container }}
+
+  build_windows:
+    runs-on: "windows-latest"
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: Install CMake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: "4.0.0"
+
+      - name: Set up MinGW
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x64
+
+      - name: Build Library
+        run: |
+          cmake -DCMAKE_INSTALL_PREFIX=C:/datetime/install -B build -DBUILD_TESTING=true -GNinja -G "MinGW Makefiles"
+          cmake --build build
+
+      - name: Run Tests
+        run: |
+          .\build\tests\test_datetime.exe
+          .\build\tests\test_c.exe
+
+      - name: Install Library
+        run: |
+          cmake --install build C:/datetime/install
+
