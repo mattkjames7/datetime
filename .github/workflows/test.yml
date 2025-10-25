@@ -74,22 +74,22 @@ jobs:
             mingw-w64-x86_64-make
             mingw-w64-x86_64-pkg-config
       
-      - name: Add MSYS2 mingw64/bin to PATH
-        shell: msys2 {0}
-        run: |
-          echo "/mingw64/bin" >> $GITHUB_PATH
+      - name: Add MSYS2 mingw64/bin to PATH (PowerShell)
+        shell: pwsh
+        run: echo "C:\msys64\mingw64\bin" >> $env:GITHUB_PATH
 
-      - name: Build Library
+      - name: Build Library (MinGW Makefiles)
+        shell: pwsh
         run: |
-          cmake -DCMAKE_INSTALL_PREFIX=C:/datetime/install -B build -DBUILD_TESTING=true -GNinja -G "MinGW Makefiles"
-          cmake --build build
+          cmake -S . -B build -G "MinGW Makefiles" -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install"
+          cmake --build build --parallel
 
       - name: Run Tests
+        shell: pwsh
         run: |
           .\build\tests\test_datetime.exe
           .\build\tests\test_c.exe
 
       - name: Install Library
-        run: |
-          cmake --install build C:/datetime/install
-
+        shell: pwsh
+        run: cmake --install build
