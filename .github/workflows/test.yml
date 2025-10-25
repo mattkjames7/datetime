@@ -39,7 +39,7 @@ jobs:
       - name: Build Library
         run: |
           docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true"
-          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && cmake --build build -GNinja"
+          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && cmake --build build . -GNinja"
 
       - name: Run Tests
         run: |
