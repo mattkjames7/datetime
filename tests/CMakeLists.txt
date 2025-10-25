@@ -68,16 +68,19 @@ gtest_discover_tests(test_datetime)
 # (RPATH doesn't apply). If we built shared libs, copy the datetime DLL
 # next to the test executable so it can be loaded at runtime in CI.
 if(BUILD_SHARED_LIBS AND WIN32)
-    # Copy the DLL to the test exe dir using the 'datetime' target directly
+    # Copy the datetime DLL to the test exe dir
     add_custom_command(TARGET test_datetime POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
             $<TARGET_FILE:datetime>
             $<TARGET_FILE_DIR:test_datetime>
     )
-    # Fallback: also try copying lib/libdatetime.dll and lib/datetime.dll
+    # Copy GoogleTest DLLs to the test exe dir (they're in bin/)
     add_custom_command(TARGET test_datetime POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${CMAKE_BINARY_DIR}/lib/libdatetime.dll
+            $<TARGET_FILE:gtest>
+            $<TARGET_FILE_DIR:test_datetime>
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            $<TARGET_FILE:gtest_main>
             $<TARGET_FILE_DIR:test_datetime>
     )
 endif()
