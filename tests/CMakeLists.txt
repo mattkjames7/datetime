@@ -1,5 +1,5 @@
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(CHECK REQUIRED check)
+pkg_check_modules(CHECK REQUIRED IMPORTED_TARGET check)
 
 include(FetchContent)
 FetchContent_Declare(
