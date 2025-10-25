@@ -1,4 +1,4 @@
-name: "Package Test"
+name: "Build and Test"
 
 on: 
   push:
@@ -10,7 +10,7 @@ on:
     - cron: '0 0 1 * *'  # Runs at midnight UTC on the 1st of every month
 
 jobs:
-  build_test:
+  build_linux:
     if: false
     runs-on: "ubuntu-latest"
     steps:
@@ -113,11 +113,11 @@ jobs:
       - name: Install Dependencies
         run: |
           brew update
-          brew install cmake ninja check
+          brew install cmake ninja check pkg-config
 
       - name: Build
         run: |
-          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="/usr/local"
+          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="$PWD/install"
           cmake --build build -j
 
       - name: Run Tests
