@@ -86,6 +86,7 @@ jobs:
       - name: Build (Ninja in MSYS2 shell)
         shell: msys2 {0}
         run: |
+          export PATH="$PWD/build/lib:$PATH"
           cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install"
           cmake --build build -j
 
