@@ -26,4 +26,4 @@ install(TARGETS datetime
     ARCHIVE DESTINATION lib        # For static libs
 )
 
-install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION include)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION include)
