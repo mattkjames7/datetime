@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y \
     g++ \
     check \
     pkg-config \
+    ninja-build \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
