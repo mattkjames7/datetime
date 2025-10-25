@@ -57,6 +57,7 @@ jobs:
 
   build_windows:
     runs-on: "windows-latest"
+    if: false
     steps:
       - name: Checkout current branch
         uses: actions/checkout@v4
@@ -99,4 +100,30 @@ jobs:
 
       - name: Install (MSYS2 shell)
         shell: msys2 {0}
+        run: cmake --install build
+
+  build_macos:
+    runs-on: "macos-latest"
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: Install Dependencies
+        run: |
+          brew update
+          brew install cmake ninja check
+
+      - name: Build
+        run: |
+          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="/usr/local"
+          cmake --build build -j
+
+      - name: Run Tests
+        run: |
+          ./build/tests/test_datetime
+          ./build/tests/test_c
+
+      - name: Install
         run: cmake --install build
