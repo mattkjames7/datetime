@@ -56,6 +56,17 @@ endif()
 include(GoogleTest)
 gtest_discover_tests(test_datetime)
 
+# On Windows the test executable won't find DLLs located in other directories
+# (RPATH doesn't apply). If we built shared libs, copy the datetime DLL
+# next to the test executable so it can be loaded at runtime in CI.
+if(BUILD_SHARED_LIBS AND WIN32)
+    add_custom_command(TARGET test_datetime POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            $<TARGET_FILE:${DATETIME_LIB_TARGET}>
+            $<TARGET_FILE_DIR:test_datetime>
+    )
+endif()
+
 # Only build C tests if check library is available
 if(CHECK_FOUND OR Check_FOUND)
     add_executable(test_c test_c.c)

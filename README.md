@@ -1,4 +1,7 @@
 # datetime
+
+[![Build and Test](https://github.com/mattkjames7/datetime/actions/workflows/test.yml/badge.svg)](https://github.com/mattkjames7/datetime/actions/workflows/test.yml)
+
 A C++ library contianing some time-related tools.
 
 ## Installation
