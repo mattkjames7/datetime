@@ -25,8 +25,8 @@ else()
     endif()
 endif()
 
-# Build static library if requested
-if(BUILD_STATIC_LIBS)
+# Build static library if requested (but not on Windows - keep it simple there)
+if(BUILD_STATIC_LIBS AND NOT WIN32)
     add_library(datetime_static STATIC ${DATETIME_SRC})
     
     # Use C++23, enable warnings and optimizations

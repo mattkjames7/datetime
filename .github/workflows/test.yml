@@ -86,7 +86,7 @@ jobs:
         shell: msys2 {0}
         run: |
           export PATH="$PWD/build/lib:$PATH"
-          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install"
+          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install" -DBUILD_STATIC_LIBS=OFF
           cmake --build build -j
 
       - name: Run Tests (MSYS2 shell)
