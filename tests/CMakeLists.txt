@@ -48,6 +48,7 @@ target_link_libraries(test_c
     ${CHECK_LIBRARIES}
     datetime
     m
+    PkgConfig::CHECK
 )
 
 set_target_properties(test_c PROPERTIES
