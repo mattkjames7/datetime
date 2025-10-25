@@ -63,15 +63,20 @@ jobs:
         with:
           ref: ${{ github.ref }}
       
-      - name: Install CMake
-        uses: jwlawson/actions-setup-cmake@v2
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2
         with:
-          cmake-version: "4.0.0"
-
-      - name: Set up MinGW
-        uses: egor-tensin/setup-mingw@v2
-        with:
-          platform: x64
+          msystem: MINGW64
+          install: >
+            git
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-make
+      
+      - name: Add MSYS2 mingw64/bin to PATH
+        shell: msys2 {0}
+        run: |
+          echo "/mingw64/bin" >> $GITHUB_PATH
 
       - name: Build Library
         run: |
