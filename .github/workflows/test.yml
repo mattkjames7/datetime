@@ -67,29 +67,26 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW64
+          update: true
           install: >
             git
             mingw-w64-x86_64-gcc
             mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-make
+            mingw-w64-x86_64-ninja
             mingw-w64-x86_64-pkg-config
-      
-      - name: Add MSYS2 mingw64/bin to PATH (PowerShell)
-        shell: pwsh
-        run: echo "C:\msys64\mingw64\bin" >> $env:GITHUB_PATH
 
-      - name: Build Library (MinGW Makefiles)
-        shell: pwsh
+      - name: Build (Ninja in MSYS2 shell)
+        shell: msys2 {0}
         run: |
-          cmake -S . -B build -G "MinGW Makefiles" -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install"
-          cmake --build build --parallel
+          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install"
+          cmake --build build -j
 
-      - name: Run Tests
-        shell: pwsh
+      - name: Run Tests (MSYS2 shell)
+        shell: msys2 {0}
         run: |
-          .\build\tests\test_datetime.exe
-          .\build\tests\test_c.exe
+          ./build/tests/test_datetime.exe
+          ./build/tests/test_c.exe
 
-      - name: Install Library
-        shell: pwsh
+      - name: Install (MSYS2 shell)
+        shell: msys2 {0}
         run: cmake --install build
