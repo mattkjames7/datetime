@@ -25,22 +25,30 @@ link_directories(${CMAKE_SOURCE_DIR}/lib)
 
 add_executable(test_datetime test_datetime.cc)
 
-# Determine which datetime library to link against
-set(DATETIME_LIB_TARGET "")
-if(TARGET datetime_shared)
-    set(DATETIME_LIB_TARGET datetime_shared)
-elseif(TARGET datetime_static)
-    set(DATETIME_LIB_TARGET datetime_static)
-else()
-    message(FATAL_ERROR "No datetime library target found")
-endif()
 
-# Link to Google Test + your datetime lib
-target_link_libraries(test_datetime
-    gtest_main
-    ${DATETIME_LIB_TARGET}
-    m
-)
+# On Windows, always link to 'datetime' (the shared lib target)
+if(WIN32)
+    target_link_libraries(test_datetime
+        gtest_main
+        datetime
+        m
+    )
+else()
+    # Determine which datetime library to link against
+    set(DATETIME_LIB_TARGET "")
+    if(TARGET datetime_shared)
+        set(DATETIME_LIB_TARGET datetime_shared)
+    elseif(TARGET datetime_static)
+        set(DATETIME_LIB_TARGET datetime_static)
+    else()
+        message(FATAL_ERROR "No datetime library target found")
+    endif()
+    target_link_libraries(test_datetime
+        gtest_main
+        ${DATETIME_LIB_TARGET}
+        m
+    )
+endif()
 
 # Include headers
 target_include_directories(test_datetime PRIVATE ${CMAKE_SOURCE_DIR}/include)
