@@ -74,7 +74,15 @@ jobs:
             mingw-w64-x86_64-cmake
             mingw-w64-x86_64-ninja
             mingw-w64-x86_64-pkg-config
+            mingw-w64-x86_64-check
 
+      - name: Sanity check deps
+        shell: msys2 {0}
+        run: |
+          gcc --version
+          pkg-config --version
+          pkg-config --modversion check
+          
       - name: Build (Ninja in MSYS2 shell)
         shell: msys2 {0}
         run: |
