@@ -11,7 +11,6 @@ on:
 
 jobs:
   build_linux:
-    if: false
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout current branch
@@ -57,7 +56,6 @@ jobs:
 
   build_windows:
     runs-on: "windows-latest"
-    if: false
     steps:
       - name: Checkout current branch
         uses: actions/checkout@v4

@@ -25,21 +25,33 @@ link_directories(${CMAKE_SOURCE_DIR}/lib)
 
 add_executable(test_datetime test_datetime.cc)
 
-# Link to Google Test + your datetime shared lib
+# Determine which datetime library to link against
+set(DATETIME_LIB_TARGET "")
+if(TARGET datetime_shared)
+    set(DATETIME_LIB_TARGET datetime_shared)
+elseif(TARGET datetime_static)
+    set(DATETIME_LIB_TARGET datetime_static)
+else()
+    message(FATAL_ERROR "No datetime library target found")
+endif()
+
+# Link to Google Test + your datetime lib
 target_link_libraries(test_datetime
     gtest_main
-    datetime
+    ${DATETIME_LIB_TARGET}
     m
 )
 
 # Include headers
 target_include_directories(test_datetime PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-# So test executable can find the shared lib at runtime
-set_target_properties(test_datetime PROPERTIES
-    BUILD_RPATH ${CMAKE_SOURCE_DIR}/lib
-    INSTALL_RPATH ${CMAKE_SOURCE_DIR}/lib
-)
+# So test executable can find the shared lib at runtime (only needed for shared libs)
+if(BUILD_SHARED_LIBS)
+    set_target_properties(test_datetime PROPERTIES
+        BUILD_RPATH ${CMAKE_SOURCE_DIR}/lib
+        INSTALL_RPATH ${CMAKE_SOURCE_DIR}/lib
+    )
+endif()
 
 include(GoogleTest)
 gtest_discover_tests(test_datetime)
@@ -54,28 +66,31 @@ if(CHECK_FOUND OR Check_FOUND)
     if(TARGET PkgConfig::CHECK)
         target_link_libraries(test_c
             PkgConfig::CHECK
-            datetime
+            ${DATETIME_LIB_TARGET}
             m
         )
     elseif(TARGET Check::check)
         target_link_libraries(test_c
             Check::check
-            datetime
+            ${DATETIME_LIB_TARGET}
             m
         )
     else()
         # Fallback to manual linking
         target_link_libraries(test_c
             check
-            datetime
+            ${DATETIME_LIB_TARGET}
             m
         )
     endif()
 
-    set_target_properties(test_c PROPERTIES
-        BUILD_RPATH ${CMAKE_SOURCE_DIR}/lib
-        INSTALL_RPATH ${CMAKE_SOURCE_DIR}/lib
-    )
+    # So test executable can find the shared lib at runtime (only needed for shared libs)
+    if(BUILD_SHARED_LIBS)
+        set_target_properties(test_c PROPERTIES
+            BUILD_RPATH ${CMAKE_SOURCE_DIR}/lib
+            INSTALL_RPATH ${CMAKE_SOURCE_DIR}/lib
+        )
+    endif()
 else()
     message(WARNING "Check library not found. C tests will not be built. Install libcheck-dev or check package.")
 endif()
