@@ -88,26 +88,50 @@ if(CHECK_FOUND OR Check_FOUND)
 
     target_include_directories(test_c PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-    # Link libraries based on which method found check
-    if(TARGET PkgConfig::CHECK)
-        target_link_libraries(test_c
-            PkgConfig::CHECK
-            ${DATETIME_LIB_TARGET}
-            m
-        )
-    elseif(TARGET Check::check)
-        target_link_libraries(test_c
-            Check::check
-            ${DATETIME_LIB_TARGET}
-            m
-        )
+    # On Windows, always link to 'datetime' (the shared lib target)
+    if(WIN32)
+        if(TARGET PkgConfig::CHECK)
+            target_link_libraries(test_c
+                PkgConfig::CHECK
+                datetime
+                m
+            )
+        elseif(TARGET Check::check)
+            target_link_libraries(test_c
+                Check::check
+                datetime
+                m
+            )
+        else()
+            # Fallback to manual linking
+            target_link_libraries(test_c
+                check
+                datetime
+                m
+            )
+        endif()
     else()
-        # Fallback to manual linking
-        target_link_libraries(test_c
-            check
-            ${DATETIME_LIB_TARGET}
-            m
-        )
+        # Link libraries based on which method found check (non-Windows)
+        if(TARGET PkgConfig::CHECK)
+            target_link_libraries(test_c
+                PkgConfig::CHECK
+                ${DATETIME_LIB_TARGET}
+                m
+            )
+        elseif(TARGET Check::check)
+            target_link_libraries(test_c
+                Check::check
+                ${DATETIME_LIB_TARGET}
+                m
+            )
+        else()
+            # Fallback to manual linking
+            target_link_libraries(test_c
+                check
+                ${DATETIME_LIB_TARGET}
+                m
+            )
+        endif()
     endif()
 
     # So test executable can find the shared lib at runtime (only needed for shared libs)
