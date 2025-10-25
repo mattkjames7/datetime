@@ -93,6 +93,7 @@ jobs:
       - name: Run Tests (MSYS2 shell)
         shell: msys2 {0}
         run: |
+          export PATH="$PWD/build/lib:$PWD/build/bin:$PATH"
           ./build/tests/test_datetime.exe
           ./build/tests/test_c.exe
 
