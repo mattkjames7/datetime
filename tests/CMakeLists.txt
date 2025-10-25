@@ -6,6 +6,11 @@ FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/heads/main.zip
 )
+
+# Prevent GoogleTest from being installed
+set(INSTALL_GTEST OFF CACHE BOOL "Disable installation of GoogleTest" FORCE)
+set(BUILD_GMOCK OFF CACHE BOOL "Disable GoogleMock" FORCE)
+
 FetchContent_MakeAvailable(googletest)
 
 link_directories(${CMAKE_SOURCE_DIR}/lib)
