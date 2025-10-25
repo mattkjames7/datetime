@@ -4,7 +4,7 @@ file(GLOB DATETIME_SRC CONFIGURE_DEPENDS "*.cc")
 add_library(datetime SHARED ${DATETIME_SRC})
 
 # Use C++17, enable warnings and optimizations like in your Makefile
-target_compile_features(datetime PRIVATE cxx_std_17)
+target_compile_features(datetime PRIVATE cxx_std_23)
 target_compile_options(datetime PRIVATE -O3 -g -Wextra -fPIC)
 
 # Link math lib (like LDFLAGS = -lm)
@@ -15,9 +15,9 @@ target_include_directories(datetime PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
 # Output library to lib/
 set_target_properties(datetime PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
-    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
 )
 
 install(TARGETS datetime
@@ -26,4 +26,4 @@ install(TARGETS datetime
     ARCHIVE DESTINATION lib        # For static libs
 )
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ DESTINATION include)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/include/ DESTINATION include)
