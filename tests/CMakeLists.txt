@@ -19,7 +19,15 @@ FetchContent_Declare(
 set(INSTALL_GTEST OFF CACHE BOOL "Disable installation of GoogleTest" FORCE)
 set(BUILD_GMOCK OFF CACHE BOOL "Disable GoogleMock" FORCE)
 
+# tests/CMakeLists.txt, before FetchContent_MakeAvailable(googletest)
+# Temporarily force static libs while googletest configures
+set(_OLD_BSL "${BUILD_SHARED_LIBS}")
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+
 FetchContent_MakeAvailable(googletest)
+
+# Restore parent setting
+set(BUILD_SHARED_LIBS "${_OLD_BSL}" CACHE BOOL "" FORCE)
 
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
