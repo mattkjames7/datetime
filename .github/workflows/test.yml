@@ -1,14 +1,16 @@
-name: "Package Test"
+name: "Build and Test"
 
 on: 
-    push:
-        tags:
-        - "v*.*.*"
-    pull_request:
-    workflow_dispatch:
+  push:
+      tags:
+      - "v*.*.*"
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'  # Runs at midnight UTC on the 1st of every month
 
 jobs:
-  build_test:
+  build_linux:
     runs-on: "ubuntu-latest"
     steps:
       - name: Checkout current branch
@@ -36,14 +38,90 @@ jobs:
 
       - name: Build Library
         run: |
-          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true"
+          docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true -GNinja"
           docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && cmake --build build"
 
       - name: Run Tests
         run: |
           docker exec -u ubuntu ${{ env.docker_container }} bash -c "cd /datetime && ./build/tests/test_datetime && ./build/tests/test_c"
 
+      - name: Install Library
+        run: |
+          docker exec -u root ${{ env.docker_container }} bash -c "cd /datetime && cmake --install build"
+
       - name: Clean Up
         if: always()
         run: |
           docker stop ${{ env.docker_container }}
+
+  build_windows:
+    runs-on: "windows-latest"
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >
+            git
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-pkg-config
+            mingw-w64-x86_64-check
+
+      - name: Sanity check deps
+        shell: msys2 {0}
+        run: |
+          gcc --version
+          pkg-config --version
+          pkg-config --modversion check
+          
+      - name: Build (Ninja in MSYS2 shell)
+        shell: msys2 {0}
+        run: |
+          export PATH="$PWD/build/lib:$PATH"
+          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install" -DBUILD_STATIC_LIBS=OFF
+          cmake --build build -j
+
+      - name: Run Tests (MSYS2 shell)
+        shell: msys2 {0}
+        run: |
+          export PATH="$PWD/build/lib:$PWD/build/bin:$PATH"
+          ./build/tests/test_datetime.exe
+          ./build/tests/test_c.exe
+
+      - name: Install (MSYS2 shell)
+        shell: msys2 {0}
+        run: cmake --install build
+
+  build_macos:
+    runs-on: "macos-latest"
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      
+      - name: Install Dependencies
+        run: |
+          brew update
+          brew install cmake ninja check pkg-config
+
+      - name: Build
+        run: |
+          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="$PWD/install"
+          cmake --build build -j
+
+      - name: Run Tests
+        run: |
+          ./build/tests/test_datetime
+          ./build/tests/test_c
+
+      - name: Install
+        run: cmake --install build

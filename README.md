@@ -1,4 +1,7 @@
 # datetime
+
+[![Build and Test](https://github.com/mattkjames7/datetime/actions/workflows/test.yml/badge.svg)](https://github.com/mattkjames7/datetime/actions/workflows/test.yml)
+
 A C++ library contianing some time-related tools.
 
 ## Installation
@@ -22,6 +25,9 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true
 
 # build the library
 cmake --build build
+
+# build with ninja
+cmake --build build -GNinja
 
 # run tests (if built)
 ./build/tests/test_datetime
