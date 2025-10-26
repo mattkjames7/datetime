@@ -7,7 +7,7 @@ set(TARGETS_TO_INSTALL)
 # On Windows, always build a shared library named 'datetime' for compatibility
 if(WIN32)
     add_library(datetime SHARED ${DATETIME_SRC})
-    target_compile_features(datetime PRIVATE cxx_std_11)
+    target_compile_features(datetime PRIVATE cxx_std_23)
     target_include_directories(datetime PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
@@ -20,7 +20,7 @@ else()
     # Build shared library if requested (non-Windows)
     if(BUILD_SHARED_LIBS)
         add_library(datetime_shared SHARED ${DATETIME_SRC})
-        target_compile_features(datetime_shared PRIVATE cxx_std_11)
+        target_compile_features(datetime_shared PRIVATE cxx_std_23)
         target_include_directories(datetime_shared PUBLIC 
             $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:include>
@@ -38,10 +38,10 @@ endif()
 # Build static library if requested (but not on Windows - keep it simple there)
 if(BUILD_STATIC_LIBS AND NOT WIN32)
     add_library(datetime_static STATIC ${DATETIME_SRC})
-    
-    # Use C++11, enable warnings and optimizations
-    target_compile_features(datetime_static PRIVATE cxx_std_11)
-    
+
+    # Use C++23, enable warnings and optimizations
+    target_compile_features(datetime_static PRIVATE cxx_std_23)
+
     # Link math lib
     target_link_libraries(datetime_static PRIVATE m)
     
