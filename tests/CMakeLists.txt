@@ -35,29 +35,23 @@ link_directories(${CMAKE_SOURCE_DIR}/lib)
 add_executable(test_datetime test_datetime.cc)
 
 
-# On Windows, always link to 'datetime' (the shared lib target)
+# Determine which datetime library to link against
+set(DATETIME_LIB_TARGET "")
 if(WIN32)
-    target_link_libraries(test_datetime
-        gtest_main
-        datetime
-        m
-    )
+    set(DATETIME_LIB_TARGET datetime)
+elseif(TARGET datetime_shared)
+    set(DATETIME_LIB_TARGET datetime_shared)
+elseif(TARGET datetime_static)
+    set(DATETIME_LIB_TARGET datetime_static)
 else()
-    # Determine which datetime library to link against
-    set(DATETIME_LIB_TARGET "")
-    if(TARGET datetime_shared)
-        set(DATETIME_LIB_TARGET datetime_shared)
-    elseif(TARGET datetime_static)
-        set(DATETIME_LIB_TARGET datetime_static)
-    else()
-        message(FATAL_ERROR "No datetime library target found")
-    endif()
-    target_link_libraries(test_datetime
-        gtest_main
-        ${DATETIME_LIB_TARGET}
-        m
-    )
+    message(FATAL_ERROR "No datetime library target found")
 endif()
+
+target_link_libraries(test_datetime
+    gtest_main
+    ${DATETIME_LIB_TARGET}
+    m
+)
 
 # Include headers
 target_include_directories(test_datetime PRIVATE ${CMAKE_SOURCE_DIR}/include)
@@ -100,50 +94,26 @@ if(CHECK_FOUND OR Check_FOUND)
 
     target_include_directories(test_c PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-    # On Windows, always link to 'datetime' (the shared lib target)
-    if(WIN32)
-        if(TARGET PkgConfig::CHECK)
-            target_link_libraries(test_c
-                PkgConfig::CHECK
-                datetime
-                m
-            )
-        elseif(TARGET Check::check)
-            target_link_libraries(test_c
-                Check::check
-                datetime
-                m
-            )
-        else()
-            # Fallback to manual linking
-            target_link_libraries(test_c
-                check
-                datetime
-                m
-            )
-        endif()
+    # Link libraries based on which method found check
+    if(TARGET PkgConfig::CHECK)
+        target_link_libraries(test_c
+            PkgConfig::CHECK
+            ${DATETIME_LIB_TARGET}
+            m
+        )
+    elseif(TARGET Check::check)
+        target_link_libraries(test_c
+            Check::check
+            ${DATETIME_LIB_TARGET}
+            m
+        )
     else()
-        # Link libraries based on which method found check (non-Windows)
-        if(TARGET PkgConfig::CHECK)
-            target_link_libraries(test_c
-                PkgConfig::CHECK
-                ${DATETIME_LIB_TARGET}
-                m
-            )
-        elseif(TARGET Check::check)
-            target_link_libraries(test_c
-                Check::check
-                ${DATETIME_LIB_TARGET}
-                m
-            )
-        else()
-            # Fallback to manual linking
-            target_link_libraries(test_c
-                check
-                ${DATETIME_LIB_TARGET}
-                m
-            )
-        endif()
+        # Fallback to manual linking
+        target_link_libraries(test_c
+            check
+            ${DATETIME_LIB_TARGET}
+            m
+        )
     endif()
 
     # So test executable can find the shared lib at runtime (only needed for shared libs)

@@ -1,0 +1,6 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/DateTimeTargets.cmake")
+
+# Provide the same targets as the build tree
+check_required_components(DateTime)
