@@ -18,16 +18,13 @@ cd datetime
 For Linux or Mac:
 ```bash
 # configure the build (default)
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -GNinja
 
 # or with tests
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true -GNinja
 
 # build the library
 cmake --build build
-
-# build with ninja
-cmake --build build -GNinja
 
 # run tests (if built)
 ./build/tests/test_datetime
