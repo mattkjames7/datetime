@@ -26,6 +26,9 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr/local -B build -DBUILD_TESTING=true -GNinja
 # build the library
 cmake --build build
 
+# build with ninja
+cmake --build build -GNinja
+
 # run tests (if built)
 ./build/tests/test_datetime
 ./build/tests/test_c
