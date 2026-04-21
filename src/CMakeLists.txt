@@ -2,6 +2,11 @@
 file(GLOB DATETIME_SRC CONFIGURE_DEPENDS "*.cc")
 
 set(TARGETS_TO_INSTALL)
+set(DATETIME_EXTRA_LIBS)
+
+if(NOT MSVC)
+    list(APPEND DATETIME_EXTRA_LIBS m)
+endif()
 
 
 # On Windows, always build a shared library named 'datetime' for compatibility
@@ -12,9 +17,15 @@ if(WIN32)
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
     )
-    target_link_libraries(datetime PRIVATE m)
+    if(DATETIME_EXTRA_LIBS)
+        target_link_libraries(datetime PRIVATE ${DATETIME_EXTRA_LIBS})
+    endif()
     # Define macro for Windows DLL exports
     target_compile_definitions(datetime PRIVATE BUILDING_DATETIME)
+    set_target_properties(datetime PROPERTIES
+        OUTPUT_NAME libdatetime
+        WINDOWS_EXPORT_ALL_SYMBOLS ON
+    )
     list(APPEND TARGETS_TO_INSTALL datetime)
 else()
     # Build shared library if requested (non-Windows)
@@ -25,7 +36,7 @@ else()
             $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
             $<INSTALL_INTERFACE:include>
         )
-        target_link_libraries(datetime_shared PRIVATE m)
+        target_link_libraries(datetime_shared PRIVATE ${DATETIME_EXTRA_LIBS})
         set_target_properties(datetime_shared PROPERTIES 
             OUTPUT_NAME datetime
             VERSION ${PROJECT_VERSION}
@@ -43,7 +54,7 @@ if(BUILD_STATIC_LIBS AND NOT WIN32)
     target_compile_features(datetime_static PRIVATE cxx_std_23)
 
     # Link math lib
-    target_link_libraries(datetime_static PRIVATE m)
+    target_link_libraries(datetime_static PRIVATE ${DATETIME_EXTRA_LIBS})
     
     # Public include path with proper generator expressions
     target_include_directories(datetime_static PUBLIC 
