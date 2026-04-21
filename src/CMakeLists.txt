@@ -12,7 +12,9 @@ if(WIN32)
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
     )
-    target_link_libraries(datetime PRIVATE m)
+    if (not MSVC)
+        target_link_libraries(datetime PRIVATE m)
+    endif()
     # Define macro for Windows DLL exports
     target_compile_definitions(datetime PRIVATE BUILDING_DATETIME)
     list(APPEND TARGETS_TO_INSTALL datetime)

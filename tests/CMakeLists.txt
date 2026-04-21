@@ -47,10 +47,15 @@ else()
     message(FATAL_ERROR "No datetime library target found")
 endif()
 
+set(DATETIME_EXTRA_LIBS)
+if(NOT MSVC)
+    list(APPEND DATETIME_EXTRA_LIBS m)
+endif()
+
 target_link_libraries(test_datetime
     gtest_main
     ${DATETIME_LIB_TARGET}
-    m
+    ${DATETIME_EXTRA_LIBS}
 )
 
 # Include headers
@@ -99,20 +104,20 @@ if(CHECK_FOUND OR Check_FOUND)
         target_link_libraries(test_c
             PkgConfig::CHECK
             ${DATETIME_LIB_TARGET}
-            m
+            ${DATETIME_EXTRA_LIBS}
         )
     elseif(TARGET Check::check)
         target_link_libraries(test_c
             Check::check
             ${DATETIME_LIB_TARGET}
-            m
+            ${DATETIME_EXTRA_LIBS}
         )
     else()
         # Fallback to manual linking
         target_link_libraries(test_c
             check
             ${DATETIME_LIB_TARGET}
-            m
+            ${DATETIME_EXTRA_LIBS}
         )
     endif()
 
