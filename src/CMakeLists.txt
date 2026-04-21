@@ -22,10 +22,16 @@ if(WIN32)
     endif()
     # Define macro for Windows DLL exports
     target_compile_definitions(datetime PRIVATE BUILDING_DATETIME)
-    set_target_properties(datetime PROPERTIES
-        OUTPUT_NAME libdatetime
-        WINDOWS_EXPORT_ALL_SYMBOLS ON
-    )
+    if(MSVC)
+        set_target_properties(datetime PROPERTIES
+            OUTPUT_NAME libdatetime
+            WINDOWS_EXPORT_ALL_SYMBOLS ON
+        )
+    else()
+        set_target_properties(datetime PROPERTIES
+            WINDOWS_EXPORT_ALL_SYMBOLS ON
+        )
+    endif()
     list(APPEND TARGETS_TO_INSTALL datetime)
 else()
     # Build shared library if requested (non-Windows)
