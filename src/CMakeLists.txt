@@ -18,10 +18,11 @@ if(WIN32)
         $<INSTALL_INTERFACE:include>
     )
     if(DATETIME_EXTRA_LIBS)
-        target_link_libraries(datetime PRIVATE m)
+        target_link_libraries(datetime PRIVATE ${DATETIME_EXTRA_LIBS})
     endif()
     # Define macro for Windows DLL exports
     target_compile_definitions(datetime PRIVATE BUILDING_DATETIME)
+    set_target_properties(datetime PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
     list(APPEND TARGETS_TO_INSTALL datetime)
 else()
     # Build shared library if requested (non-Windows)
