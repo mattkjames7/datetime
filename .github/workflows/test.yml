@@ -55,7 +55,6 @@ jobs:
           docker stop ${{ env.docker_container }}
 
   build_windows:
-    if: false
     runs-on: "windows-latest"
     steps:
       - name: Checkout current branch
@@ -102,7 +101,6 @@ jobs:
         run: cmake --install build
 
   build_macos:
-    if: false
     runs-on: "macos-latest"
     steps:
       - name: Checkout current branch
@@ -147,7 +145,11 @@ jobs:
         run: |
           $env:PATH += ";$PWD/build/lib/Release;$PWD/build/bin"
           .\build\tests\Release\test_datetime.exe
-          .\build\tests\Release\test_c.exe
+          if (Test-Path ".\build\tests\Release\test_c.exe") {
+            .\build\tests\Release\test_c.exe
+          } else {
+            Write-Host "test_c.exe not found (check library not available), skipping C tests"
+          }
 
       - name: Install
         run: cmake --install build --config Release
