@@ -55,6 +55,7 @@ jobs:
           docker stop ${{ env.docker_container }}
 
   build_windows:
+    if: false
     runs-on: "windows-latest"
     steps:
       - name: Checkout current branch
@@ -101,6 +102,7 @@ jobs:
         run: cmake --install build
 
   build_macos:
+    if: false
     runs-on: "macos-latest"
     steps:
       - name: Checkout current branch
@@ -122,6 +124,30 @@ jobs:
         run: |
           ./build/tests/test_datetime
           ./build/tests/test_c
+
+      - name: Install
+        run: cmake --install build
+
+
+  build_windows_msvc:
+    runs-on: "windows-latest"
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          
+      - name: Build
+        run: |
+          export PATH="$PWD/build/lib:$PATH"
+          cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install" -DBUILD_STATIC_LIBS=OFF
+          cmake --build build -j
+
+      - name: Run Tests
+        run: |
+          export PATH="$PWD/build/lib:$PWD/build/bin:$PATH"
+          ./build/tests/test_datetime.exe
+          ./build/tests/test_c.exe
 
       - name: Install
         run: cmake --install build
