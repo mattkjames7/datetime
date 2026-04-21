@@ -141,13 +141,13 @@ jobs:
         run: |
           $env:PATH += ";$PWD/build/lib"
           cmake -S . -B build -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install" -DBUILD_STATIC_LIBS=OFF
-          cmake --build build -j
+          cmake --build build --config Release -j
 
       - name: Run Tests
         run: |
-          $env:PATH += ";$PWD/build/lib;$PWD/build/bin"
-          .\build\tests\test_datetime.exe
-          .\build\tests\test_c.exe
+          $env:PATH += ";$PWD/build/lib/Release;$PWD/build/bin"
+          .\build\tests\Release\test_datetime.exe
+          .\build\tests\Release\test_c.exe
 
       - name: Install
-        run: cmake --install build
+        run: cmake --install build --config Release
