@@ -139,13 +139,13 @@ jobs:
           
       - name: Build
         run: |
-          export PATH="$PWD/build/lib:$PATH"
+          env:$PATH += ";$PWD/build/lib"
           cmake -S . -B build -G Ninja -DBUILD_TESTING=ON -DCMAKE_INSTALL_PREFIX="C:/datetime/install" -DBUILD_STATIC_LIBS=OFF
           cmake --build build -j
 
       - name: Run Tests
         run: |
-          export PATH="$PWD/build/lib:$PWD/build/bin:$PATH"
+          env:$PATH += ";$PWD/build/lib;$PWD/build/bin"
           ./build/tests/test_datetime.exe
           ./build/tests/test_c.exe
 
