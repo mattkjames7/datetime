@@ -70,7 +70,7 @@ if(BUILD_SHARED_LIBS)
 endif()
 
 include(GoogleTest)
-gtest_discover_tests(test_datetime)
+gtest_discover_tests(test_datetime DISCOVERY_MODE PRE_TEST)
 
 # On Windows the test executable won't find DLLs located in other directories
 # (RPATH doesn't apply). If we built shared libs, copy the datetime DLL
