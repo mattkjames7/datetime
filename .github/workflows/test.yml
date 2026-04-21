@@ -146,8 +146,8 @@ jobs:
       - name: Run Tests
         run: |
           $env:PATH += ";$PWD/build/lib;$PWD/build/bin"
-          ./build/tests/test_datetime.exe
-          ./build/tests/test_c.exe
+          .\build\tests\test_datetime.exe
+          .\build\tests\test_c.exe
 
       - name: Install
         run: cmake --install build
