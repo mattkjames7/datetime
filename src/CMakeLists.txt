@@ -101,21 +101,21 @@ endforeach()
 if(TARGETS_TO_INSTALL)
     install(TARGETS ${TARGETS_TO_INSTALL}
         EXPORT DateTimeTargets
-        LIBRARY DESTINATION lib
-        RUNTIME DESTINATION bin        # For Windows .dll
-        ARCHIVE DESTINATION lib        # For static libs
-        INCLUDES DESTINATION include   # For imported targets
+        LIBRARY DESTINATION ${DATETIME_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${DATETIME_INSTALL_BINDIR}        # For Windows .dll
+        ARCHIVE DESTINATION ${DATETIME_INSTALL_LIBDIR}        # For static libs
+        INCLUDES DESTINATION ${DATETIME_INSTALL_INCLUDEDIR}   # For imported targets
     )
     
     # Install export targets
     install(EXPORT DateTimeTargets
         FILE DateTimeTargets.cmake
-        DESTINATION lib/cmake/DateTime
+        DESTINATION ${DATETIME_INSTALL_CMAKEDIR}
     )
 endif()
 
 # Install headers
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/ 
-    DESTINATION include
+    DESTINATION ${DATETIME_INSTALL_INCLUDEDIR}
     FILES_MATCHING PATTERN "*.h"
 )
