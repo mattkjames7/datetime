@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(DateTime 
-    VERSION 1.1.1
+    VERSION 1.1.2
     DESCRIPTION "A C++ library containing time-related tools"
     LANGUAGES C CXX
 )
