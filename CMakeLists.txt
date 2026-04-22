@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 project(DateTime 
     VERSION 1.1.1
     DESCRIPTION "A C++ library containing time-related tools"
@@ -13,6 +13,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(BUILD_TESTING "Build unit tests" OFF)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(BUILD_STATIC_LIBS "Build static libraries" ON)
+set(DATETIME_INSTALL_LIBDIR "lib" CACHE STRING "Library installation directory")
+set(DATETIME_INSTALL_BINDIR "bin" CACHE STRING "Runtime installation directory")
+set(DATETIME_INSTALL_INCLUDEDIR "include" CACHE STRING "Header installation directory")
+set(DATETIME_INSTALL_CMAKEDIR "lib/cmake/DateTime" CACHE STRING "CMake config installation directory")
 
 # Validate options
 if(NOT BUILD_SHARED_LIBS AND NOT BUILD_STATIC_LIBS)
@@ -48,7 +52,7 @@ include(CMakePackageConfigHelpers)
 configure_package_config_file(
     DateTimeConfig.cmake.in
     "${CMAKE_CURRENT_BINARY_DIR}/DateTimeConfig.cmake"
-    INSTALL_DESTINATION lib/cmake/DateTime
+    INSTALL_DESTINATION ${DATETIME_INSTALL_CMAKEDIR}
 )
 
 write_basic_package_version_file(
@@ -61,7 +65,7 @@ write_basic_package_version_file(
 install(FILES
     "${CMAKE_CURRENT_BINARY_DIR}/DateTimeConfig.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/DateTimeConfigVersion.cmake"
-    DESTINATION lib/cmake/DateTime
+    DESTINATION ${DATETIME_INSTALL_CMAKEDIR}
 )
 
 # Add a manual uninstall target
